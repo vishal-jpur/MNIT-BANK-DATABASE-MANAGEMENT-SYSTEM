@@ -2,7 +2,7 @@
     include "connect.php";
     /* Avoid multiple sessions warning
     Check if session is set before starting a new one. */
-    if(!isset($_SESSION)) {
+    if(!isset($_SESSION)) {                      #. If the variable exists and does not contain a NULL value, it returns TRUE
         session_start();
     }
 
