@@ -18,8 +18,8 @@
     </div>
 
 <script>
-// For-Loop below is used to create active links and accordingly color them.
-// Helps in recognizing which tab is selected.
+                                                    // For-Loop below is used to create active links and accordingly color them.
+                                                    // Helps in recognizing which tab is selected.
 for (var i = 0; i < document.links.length; i++) {
     if (document.URL.indexOf('?') > 0) {
         sanitizedURL = document.URL.substring(0, document.URL.indexOf('?'));
@@ -40,8 +40,8 @@ function openNav() {
     }
 }
 
-// Never use get window size of jquery, in javascript, they dont work !
-// lesson learnt !!!
+                                                    // Never use get window size of jquery, in javascript, they dont work !
+                                                    // lesson learnt !!!
 function closeNav() {
     if (document.documentElement.clientWidth < 856) {
         document.getElementById("theSideNav").style.width = "0";
