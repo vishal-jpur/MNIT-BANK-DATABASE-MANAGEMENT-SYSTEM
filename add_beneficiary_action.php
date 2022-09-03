@@ -5,26 +5,27 @@
     include "customer_sidebar.php";
     include "session_timeout.php";
 
-    $fname = mysqli_real_escape_string($conn, $_POST["fname"]);
-    $lname = mysqli_real_escape_string($conn, $_POST["lname"]);
-    $acno = mysqli_real_escape_string($conn, $_POST["acno"]);
-    $email = mysqli_real_escape_string($conn, $_POST["email"]);
-    $phno = mysqli_real_escape_string($conn, $_POST["phno"]);
+    $fname = mysqli_real_escape_string($conn, $_POST["fname"]);              # allows the special characters to be considered as a part of the string and saved in the database as a string
+    $lname = mysqli_real_escape_string($conn, $_POST["lname"]);              #fetch last name from html form via POST Method
+    $acno = mysqli_real_escape_string($conn, $_POST["acno"]);               #  ....account info
+    $email = mysqli_real_escape_string($conn, $_POST["email"]);               #  ....email of user
+    $phno = mysqli_real_escape_string($conn, $_POST["phno"]);                   #.....phome no. of user
 
-    $id = $_SESSION['loggedIn_cust_id'];
-    $sql0 = "SELECT cust_id FROM customer WHERE first_name='".$fname."' AND
+    $id = $_SESSION['loggedIn_cust_id'];                                        #contains all session varibale
+
+    $sql0 = "SELECT cust_id FROM customer WHERE first_name='".$fname."' AND              #...selects cust_id column fron customer TABLE where....data as fetched from html form
                                                 last_name='".$lname."' AND
                                                 account_no='".$acno."' AND
                                                 email='".$email."' AND
                                                 phone_no='".$phno."'";
-    $result = $conn->query($sql0);
+    $result = $conn->query($sql0);                                     #php oops way of sending query...performs query against database 
 
     $success = 0;
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
+    if ($result->num_rows > 0) {                                     #returns number of rows
+        $row = $result->fetch_assoc();                              # fetches a result row as an associative array.
         $beneficiary_id = $row["cust_id"];
 
-        if ($id != $beneficiary_id) {
+        if ($id != $beneficiary_id) {                                
             $sql1 = "INSERT INTO beneficiary".$id." VALUES(
                         NULL,
                         '$beneficiary_id',
@@ -33,7 +34,7 @@
                         '$acno'
                     )";
 
-            if (($conn->query($sql1) === TRUE)) {
+            if (($conn->query($sql1) === TRUE)) {          #if found its true set success to 1
                 $success = 1;
             }
         }
@@ -53,8 +54,8 @@
 <body>
     <div class="flex-container">
         <div class="flex-item">
-            <?php
-            if ($success == 1) { ?>
+            <?php   
+            if ($success == 1) { ?>                                          #if success==1 add user
                 <p id="info"><?php echo "Beneficiary successfully added !\n"; ?></p>
             <?php } ?>
 
